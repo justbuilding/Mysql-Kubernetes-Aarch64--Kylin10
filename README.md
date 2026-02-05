@@ -6,20 +6,21 @@ This repository contains Kubernetes deployment configurations for MySQL database
 
 ```
 .
-├── mysql-5.7-amd64/         # MySQL 5.7 for both amd64 and ARM64
-├── mysql-9.6.0-arm64/        # MySQL 9.6.0 for ARM64 only
-└── README.md                 # This file
+├── mysql-5.7-amd64/         # MySQL 5.7 for AMD64 architecture
+├── mysql-5.7-arm64/         # MySQL 5.7 for ARM64 architecture
+├── mysql-9.6.0-arm64/        # MySQL 9.6.0 for ARM64 architecture
+├── README.md                 # This file
+└── USAGE.md                  # General usage documentation
 ```
 
 ## 部署说明
 
-### MySQL 5.7 部署
+### MySQL 5.7 (AMD64) 部署
 
-**支持架构**：amd64 和 ARM64
+**支持架构**：仅 AMD64
 
 **镜像信息**：
 - MySQL 5.7 (AMD64): `registry.cn-hangzhou.aliyuncs.com/public_hjj_images/mysql:57amd64`
-- MySQL 5.7 (ARM64): `registry.cn-hangzhou.aliyuncs.com/public_hjj_images/mysql:57arm64`
 
 **部署步骤**：
 ```bash
@@ -30,7 +31,23 @@ kubectl apply -f mysql-deployment.yaml
 kubectl apply -f mysql-service.yaml
 ```
 
-### MySQL 9.6.0 部署
+### MySQL 5.7 (ARM64) 部署
+
+**支持架构**：仅 ARM64
+
+**镜像信息**：
+- MySQL 5.7 (ARM64): `registry.cn-hangzhou.aliyuncs.com/public_hjj_images/mysql:57arm64`
+
+**部署步骤**：
+```bash
+cd mysql-5.7-arm64
+kubectl apply -f mysql-pv.yaml
+kubectl apply -f mysql-pvc.yaml
+kubectl apply -f mysql-deployment.yaml
+kubectl apply -f mysql-service.yaml
+```
+
+### MySQL 9.6.0 (ARM64) 部署
 
 **支持架构**：仅 ARM64
 
@@ -80,8 +97,9 @@ kubectl apply -f mysql-service.yaml
 
 ## 版本兼容性
 
-- **MySQL 5.7**：同时支持 amd64 和 ARM64 架构
-- **MySQL 9.6.0**：仅支持 ARM64 架构
+- **MySQL 5.7 (AMD64)**：仅支持 AMD64 架构
+- **MySQL 5.7 (ARM64)**：仅支持 ARM64 架构
+- **MySQL 9.6.0 (ARM64)**：仅支持 ARM64 架构
 
 ## 注意事项
 
@@ -103,6 +121,7 @@ kubectl apply -f mysql-service.yaml
 
 所有镜像均来自阿里云容器镜像服务，提供更快的拉取速度和更好的稳定性：
 
+- MySQL 5.7 (AMD64): `registry.cn-hangzhou.aliyuncs.com/public_hjj_images/mysql:57amd64`
 - MySQL 5.7 (ARM64): `registry.cn-hangzhou.aliyuncs.com/public_hjj_images/mysql:57arm64`
 - MySQL 9.6.0 (ARM64): `registry.cn-hangzhou.aliyuncs.com/public_hjj_images/mysql9.6.0:arm64`
 
