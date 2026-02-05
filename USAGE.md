@@ -93,14 +93,19 @@ kubectl exec -it $(kubectl get pods -l app=mysql -o jsonpath='{.items[0].metadat
 
 ### 修改 MySQL 密码和权限
 
+默认密码为 `123456`，建议部署后修改为更安全的密码。
+
 在 Pod 内部执行以下命令：
 
 ```bash
-mysql -uroot -p
+mysql -uroot -p123456
 
-# 修改 root 用户密码
-ALTER USER 'root'@'%' IDENTIFIED BY '新密码';
-ALTER USER 'root'@'localhost' IDENTIFIED BY '新密码';
+# 使用 mysql 数据库
+USE mysql;
+
+# 修改 root 用户密码（示例：改为 MYSQL_ROOT_PASSWORD123456）
+ALTER USER 'root'@'%' IDENTIFIED BY 'MYSQL_ROOT_PASSWORD123456';
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'MYSQL_ROOT_PASSWORD123456';
 
 # 授权
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
@@ -108,6 +113,9 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
 
 # 刷新权限
 FLUSH PRIVILEGES;
+
+# 退出后使用新密码登录
+# mysql -uroot -pMYSQL_ROOT_PASSWORD123456
 ```
 
 ### 解决旧客户端连接问题
